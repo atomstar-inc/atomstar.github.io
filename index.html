@@ -27,6 +27,7 @@
         .container {
             text-align: center;
             padding: 2rem;
+            padding-bottom: 6rem;
             max-width: 800px;
             width: 100%;
             animation: fadeIn 1s ease-in;
@@ -43,21 +44,21 @@
             }
         }
 
-        /* Logo area - currently displays text, but structured to easily accept an image */
+        /* Logo area - currently displays text, but structured to easily accept an image
+           When you have a logo image, uncomment the section below and add <img> tag in HTML:
+           
+           .logo-area img {
+               max-width: 200px;
+               height: auto;
+               margin-bottom: 1rem;
+           }
+           
+           Then replace the <h1> tag in the HTML with:
+           <img src="path/to/your/logo.png" alt="atomtar logo">
+        */
         .logo-area {
             margin-bottom: 2rem;
         }
-
-        /* When you have a logo image, uncomment and update this section:
-        .logo-area img {
-            max-width: 200px;
-            height: auto;
-            margin-bottom: 1rem;
-        }
-        
-        To add your logo, simply replace the <h1> tag with:
-        <img src="path/to/your/logo.png" alt="atomtar logo">
-        */
 
         h1 {
             font-size: 4rem;
