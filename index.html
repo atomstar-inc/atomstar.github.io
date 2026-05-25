@@ -3,926 +3,684 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ATOMSTAR / Brand System v0.1</title>
+<title>ATOMSTAR · IT Consulting and Adversarial Research</title>
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Newsreader:opsz,wght,ital@6..72,400,0;6..72,400,1;6..72,700,0;6..72,800,0&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Newsreader:opsz,wght,ital@6..72,400,0;6..72,400,1&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>
+  // Apply persisted theme before first paint, to avoid flash.
+  (() => {
+    try {
+      const t = localStorage.getItem('atomstar-theme');
+      if (t === 'dark' || t === 'light') {
+        document.documentElement.dataset.theme = t;
+      }
+    } catch (e) {}
+  })();
+</script>
 <style>
   :root {
-    --phosphor: #ff7a1a;       /* signal amber */
+    /* brand pigments — never reassigned */
+    --phosphor: #ff7a1a;
     --phosphor-dim: #b34d00;
-    --bone: #efe7d6;           /* paper / off-white */
-    --carbon: #0a0a0a;          /* near black */
-    --void: #000000;
-    --fission: #ff2d2d;        /* red team accent */
-    --uranium: #d6ff3a;        /* warning yellow-green */
-    --grid: rgba(255, 122, 26, 0.08);
-    --rule: rgba(239, 231, 214, 0.18);
+    --carbon: #0a0a0a;
+    --bone: #efe7d6;
+    --fission: #ff2d2d;
+
+    /* role tokens — DARK is the default */
+    --bg: var(--carbon);
+    --fg: var(--bone);
+    --bg-deep: #000000;
+    --dim: rgba(239, 231, 214, 0.5);
+    --rule: rgba(239, 231, 214, 0.12);
+    --bar-bg: rgba(10, 10, 10, 0.85);
+    --accent: var(--phosphor);
+    --accent-on: var(--carbon);
+    --mark-stroke: var(--phosphor);
   }
+
+  /* LIGHT — bone bg, darker phosphor for contrast */
+  [data-theme="light"] {
+    --bg: var(--bone);
+    --fg: var(--carbon);
+    --bg-deep: #e4dcc4;
+    --dim: rgba(10, 10, 10, 0.55);
+    --rule: rgba(10, 10, 10, 0.14);
+    --bar-bg: rgba(239, 231, 214, 0.85);
+    --accent: var(--phosphor-dim);
+    --accent-on: var(--bone);
+    --mark-stroke: var(--phosphor-dim);
+  }
+
+  html { transition: background 0.25s ease, color 0.25s ease; }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   html, body {
-    background: var(--carbon);
-    color: var(--bone);
-    font-family: 'IBM Plex Mono', monospace;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
     font-size: 13px;
-    line-height: 1.5;
-    overflow-x: hidden;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
+  a { color: inherit; text-decoration: none; }
+  em { color: var(--accent); font-style: italic; }
+  ::selection { background: var(--accent); color: var(--accent-on); }
 
-  /* CRT scanlines + grain overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 100;
-    background:
-      repeating-linear-gradient(
-        0deg,
-        rgba(0,0,0,0) 0px,
-        rgba(0,0,0,0) 2px,
-        rgba(0,0,0,0.12) 3px,
-        rgba(0,0,0,0) 4px
-      );
-    mix-blend-mode: multiply;
-  }
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 99;
-    background-image:
-      radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%);
-  }
-
-  /* ─── HEADER BAR ─── */
-  .topbar {
-    border-bottom: 1px solid var(--rule);
-    padding: 14px 32px;
+  /* ─── Top minimal bar ─── */
+  .top {
+    padding: 22px 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 24px;
     font-size: 11px;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--phosphor);
-    background: var(--void);
+    color: var(--dim);
+    position: sticky;
+    top: 0;
+    background: var(--bar-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 40;
   }
-  .topbar .blink {
-    animation: blink 1.4s steps(2, end) infinite;
-  }
-  @keyframes blink { 50% { opacity: 0; } }
-  .topbar-meta { display: flex; gap: 24px; color: var(--bone); opacity: 0.6; }
+  .top .brand { color: var(--accent); letter-spacing: 0.25em; font-weight: 500; }
+  .top nav { display: flex; gap: 22px; margin-left: auto; }
+  .top nav a:hover { color: var(--fg); }
 
-  /* ─── SECTION FRAME ─── */
-  section {
-    padding: 80px 32px;
-    border-bottom: 1px solid var(--rule);
-    position: relative;
-  }
-
-  .section-label {
-    position: absolute;
-    top: 24px;
-    left: 32px;
+  /* theme toggle */
+  .theme-toggle {
+    background: transparent;
+    border: 1px solid var(--rule);
+    padding: 6px 10px;
+    font: inherit;
     font-size: 10px;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--phosphor);
+    color: var(--dim);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+  .theme-toggle:hover { border-color: var(--accent); }
+  .theme-toggle .sep { opacity: 0.4; }
+  .theme-toggle .active { color: var(--accent); }
+
+  /* ─── HERO / typewriter ─── */
+  .hero {
+    min-height: 88vh;
+    padding: 0 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
     display: flex;
     align-items: center;
     gap: 10px;
   }
-  .section-label::before {
+  .hero .eyebrow::before {
     content: '';
-    width: 8px; height: 8px;
-    background: var(--phosphor);
-    box-shadow: 0 0 12px var(--phosphor);
+    width: 6px; height: 6px;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
     border-radius: 50%;
+    animation: pulse 1.6s steps(2, end) infinite;
   }
+  @keyframes pulse { 50% { opacity: 0.2; } }
 
-  .section-num {
-    position: absolute;
-    top: 24px;
-    right: 32px;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--bone);
-    opacity: 0.4;
-  }
-
-  h1, h2, h3 { font-weight: 400; letter-spacing: -0.02em; }
-
-  /* ─── HERO ─── */
-  .hero {
-    min-height: 80vh;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 40px;
-    align-items: center;
-    padding-top: 100px;
-    padding-bottom: 60px;
-    background:
-      linear-gradient(var(--grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid) 1px, transparent 1px),
-      var(--carbon);
-    background-size: 40px 40px;
-  }
-
-  .hero h1 {
-    font-family: 'Major Mono Display', 'IBM Plex Mono', monospace;
-    font-weight: 400;
-    font-size: clamp(64px, 11vw, 168px);
-    line-height: 0.9;
-    color: var(--bone);
-    letter-spacing: 0;
-  }
-  .hero h1 .a-star {
-    color: var(--phosphor);
-    text-shadow: 0 0 30px rgba(255, 122, 26, 0.5);
-  }
-
-  .hero-tagline {
-    margin-top: 24px;
-    font-size: 13px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--bone);
-    opacity: 0.7;
-    max-width: 480px;
-  }
-
-  .hero-spec {
-    border: 1px solid var(--rule);
-    padding: 24px;
-    background: rgba(255, 122, 26, 0.02);
-    font-size: 11px;
-    line-height: 2;
-  }
-  .hero-spec dt {
-    color: var(--phosphor);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    display: inline-block;
-    width: 110px;
-  }
-  .hero-spec dd { display: inline; color: var(--bone); }
-  .hero-spec .row { border-bottom: 1px dashed var(--rule); padding: 8px 0; }
-  .hero-spec .row:last-child { border: 0; }
-
-  /* ─── PRIMARY MARK ─── */
-  .mark-stage {
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border: 1px solid var(--rule);
-  }
-  .mark-cell {
-    aspect-ratio: 4/3;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding: 40px;
-    border-right: 1px solid var(--rule);
-  }
-  .mark-cell:last-child { border-right: 0; }
-  .mark-cell.dark { background: var(--void); }
-  .mark-cell.light { background: var(--bone); color: var(--carbon); }
-  .mark-cell.light .logo-wordmark { color: var(--carbon); }
-  .mark-cell.light .logo-icon-ring { stroke: var(--carbon); }
-  .mark-cell.light .logo-icon-core { fill: var(--fission); }
-  .mark-cell.light .logo-icon-orbit { stroke: var(--carbon); }
-  .mark-cell.light .logo-icon-nuc { fill: var(--carbon); }
-
-  .mark-cell .corner-tag {
-    position: absolute;
-    top: 16px; left: 16px;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    opacity: 0.5;
-  }
-
-  /* ─── ATOMSTAR LOGO ─── */
-  .logo-full {
+  /* mark — atom icon + wordmark, horizontal */
+  .mark {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: clamp(20px, 4vw, 56px);
+    opacity: 0;
+    animation: fade-in 0.8s ease-out 0.2s forwards;
   }
-  .logo-icon {
-    width: 72px;
-    height: 72px;
+  @keyframes fade-in { to { opacity: 1; } }
+
+  .atom {
+    width: clamp(140px, 18vw, 280px);
+    height: clamp(140px, 18vw, 280px);
     flex-shrink: 0;
   }
-  .logo-icon-ring {
-    fill: none;
-    stroke: var(--phosphor);
-    stroke-width: 2;
-  }
-  .logo-icon-orbit {
-    fill: none;
-    stroke: var(--phosphor);
-    stroke-width: 1.5;
-    opacity: 0.7;
-  }
-  .logo-icon-core { fill: var(--phosphor); }
-  .logo-icon-nuc { fill: var(--bone); }
+  .atom .ring  { fill: none; stroke: var(--mark-stroke); stroke-width: 2; }
+  .atom .orbit { fill: none; stroke: var(--mark-stroke); stroke-width: 1.5; opacity: 0.85; }
+  .atom .core  { fill: var(--accent); }
+  /* three orbits, each spinning at its own pace — gives a 3-body feel */
+  .atom .o1 { transform-origin: 50% 50%; animation: orbit-a 14s linear infinite; }
+  .atom .o2 { transform-origin: 50% 50%; animation: orbit-a 10s linear infinite reverse; }
+  .atom .o3 { transform-origin: 50% 50%; animation: orbit-a 18s linear infinite; }
+  @keyframes orbit-a { to { transform: rotate(360deg); } }
 
-  .logo-wordmark {
+  .wordmark {
     font-family: 'Major Mono Display', 'IBM Plex Mono', monospace;
-    font-weight: 400;
-    font-size: 32px;
+    font-size: clamp(48px, 9vw, 132px);
+    line-height: 0.95;
     letter-spacing: -0.02em;
-    color: var(--bone);
-    line-height: 1;
-  }
-  .logo-wordmark .star { color: var(--phosphor); }
-
-  .mark-cell.large .logo-icon { width: 120px; height: 120px; }
-  .mark-cell.large .logo-wordmark { font-size: 48px; }
-
-  /* spinning orbits animation */
-  .orbit-anim {
-    transform-origin: 50% 50%;
-    animation: orbit 12s linear infinite;
-  }
-  .orbit-anim-2 {
-    transform-origin: 50% 50%;
-    animation: orbit 8s linear infinite reverse;
-  }
-  @keyframes orbit {
-    to { transform: rotate(360deg); }
-  }
-
-  /* ─── COLOR PALETTE ─── */
-  .palette {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-    gap: 2px;
-    margin-top: 40px;
-  }
-  .swatch {
-    aspect-ratio: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    transition: transform 0.3s;
-  }
-  .swatch:hover { transform: translateY(-4px); }
-  .palette > :first-child { aspect-ratio: 2/1; }
-  .sw-name {
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-  .sw-hex {
-    font-size: 11px;
-    font-family: 'IBM Plex Mono', monospace;
-    letter-spacing: 0.05em;
-  }
-  .sw-role {
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    opacity: 0.7;
-  }
-  .sw-phosphor { background: var(--phosphor); color: var(--carbon); }
-  .sw-carbon { background: var(--carbon); color: var(--bone); border: 1px solid var(--rule); }
-  .sw-bone { background: var(--bone); color: var(--carbon); }
-  .sw-fission { background: var(--fission); color: var(--carbon); }
-  .sw-uranium { background: var(--uranium); color: var(--carbon); }
-
-  /* ─── TYPOGRAPHY ─── */
-  .type-stack { margin-top: 40px; display: flex; flex-direction: column; gap: 48px; }
-  .type-row {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 40px;
-    padding-bottom: 32px;
-    border-bottom: 1px dashed var(--rule);
-  }
-  .type-meta {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--phosphor);
-    line-height: 1.8;
-  }
-  .type-meta strong { display: block; color: var(--bone); font-size: 13px; margin-bottom: 12px; font-weight: 500; }
-  .type-meta .role { color: var(--bone); opacity: 0.5; }
-
-  .type-sample-display {
-    font-family: 'Major Mono Display', 'IBM Plex Mono', monospace;
+    color: var(--fg);
     font-weight: 400;
-    font-size: 72px;
-    line-height: 1;
-    letter-spacing: 0;
-    color: var(--bone);
   }
-  .type-sample-display .accent { color: var(--phosphor); }
-  .type-sample-serif {
+  .wordmark .accent { color: var(--accent); }
+
+  .hero .sub {
+    margin-top: 8px;
     font-family: 'Newsreader', serif;
-    font-size: 44px;
-    line-height: 1.1;
-    font-weight: 400;
-    font-variation-settings: "opsz" 144;
-    color: var(--bone);
+    font-size: clamp(17px, 2vw, 22px);
+    line-height: 1.45;
+    max-width: 640px;
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: slidein 0.8s ease-out 1s forwards;
   }
-  .type-sample-serif em { color: var(--phosphor); font-style: italic; }
-  .type-sample-mono {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--bone);
-    opacity: 0.9;
-  }
-  .type-sample-mono .prompt { color: var(--phosphor); }
+  @keyframes slidein { to { opacity: 1; transform: translateX(0); } }
 
-  /* ─── VARIATIONS ─── */
-  .variants {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    margin-top: 40px;
-  }
-  .variant-card {
-    aspect-ratio: 4/3;
-    background: var(--void);
-    border: 1px solid var(--rule);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    position: relative;
-  }
-  .variant-card .v-label {
+  /* hairline at hero bottom that draws horizontally */
+  .hero::after {
+    content: '';
     position: absolute;
-    bottom: 12px;
-    left: 16px;
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--phosphor);
-    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background: var(--accent);
+    width: 0;
+    animation: draw 1.4s ease-out 1.4s forwards;
   }
-  .variant-card.inverted { background: var(--bone); }
-  .variant-card.inverted .logo-wordmark { color: var(--carbon); }
-  .variant-card.inverted .logo-icon-ring,
-  .variant-card.inverted .logo-icon-orbit { stroke: var(--carbon); }
-  .variant-card.inverted .logo-icon-core { fill: var(--fission); }
-  .variant-card.inverted .logo-icon-nuc { fill: var(--carbon); }
-  .variant-card.inverted .v-label { color: var(--carbon); }
+  @keyframes draw { to { width: 100%; } }
 
-  .variant-card.mono-light { background: var(--bone); }
-  .variant-card.mono-light .logo-wordmark { color: var(--carbon); }
-  .variant-card.mono-light .logo-icon-ring,
-  .variant-card.mono-light .logo-icon-orbit { stroke: var(--carbon); }
-  .variant-card.mono-light .logo-icon-core { fill: var(--carbon); }
-  .variant-card.mono-light .logo-icon-nuc { fill: var(--bone); }
-  .variant-card.mono-light .v-label { color: var(--carbon); }
-
-  .variant-card.mono-dark .logo-icon-ring,
-  .variant-card.mono-dark .logo-icon-orbit { stroke: var(--bone); }
-  .variant-card.mono-dark .logo-icon-core { fill: var(--bone); }
-  .variant-card.mono-dark .logo-icon-nuc { fill: var(--carbon); }
-  .variant-card.mono-dark .logo-wordmark { color: var(--bone); }
-
-  /* stacked variant */
-  .stacked {
+  /* ─── Marquee ─── */
+  .marquee {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 18px 0;
+    overflow: hidden;
+    background: var(--bg-deep);
+    position: relative;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track {
     display: flex;
-    flex-direction: column;
+    gap: 64px;
+    width: max-content;
+    animation: scroll-left 60s linear infinite;
+    will-change: transform;
+  }
+  .marquee.fast .marquee-track { animation-duration: 32s; }
+  .marquee.slow .marquee-track { animation-duration: 90s; }
+  .marquee-track span {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg);
+    display: inline-flex;
     align-items: center;
     gap: 12px;
+    white-space: nowrap;
   }
-  .stacked .logo-icon { width: 56px; height: 56px; }
-  .stacked .logo-wordmark { font-size: 18px; }
+  .marquee-track span::before {
+    content: '★';
+    color: var(--accent);
+  }
+  .marquee.headline .marquee-track span {
+    font-family: 'Major Mono Display', monospace;
+    font-size: clamp(40px, 7vw, 90px);
+    text-transform: none;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+    gap: 28px;
+  }
+  .marquee.headline .marquee-track span::before {
+    content: '/';
+    color: var(--accent);
+    font-family: 'Major Mono Display', monospace;
+  }
+  .marquee.headline { padding: 36px 0; }
+  .marquee.alt { background: var(--bg); }
 
-  /* favicon grid */
-  .favicon-row {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 16px;
-    margin-top: 32px;
+  @keyframes scroll-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
   }
-  .fav {
-    aspect-ratio: 1;
-    background: var(--carbon);
-    border: 1px solid var(--rule);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  .fav .fav-size {
-    position: absolute;
-    bottom: 4px;
-    right: 6px;
-    font-size: 8px;
-    color: var(--phosphor);
-    opacity: 0.6;
-    letter-spacing: 0.1em;
-  }
-  .fav svg { width: 60%; height: 60%; }
-  .fav.size-16 svg { width: 16px; height: 16px; }
-  .fav.size-32 svg { width: 32px; height: 32px; }
-  .fav.size-light { background: var(--bone); }
-  .fav.size-light .logo-icon-ring,
-  .fav.size-light .logo-icon-orbit { stroke: var(--carbon); }
-  .fav.size-light .logo-icon-core { fill: var(--fission); }
-  .fav.size-light .logo-icon-nuc { fill: var(--carbon); }
 
-  /* ─── PRINCIPLES ─── */
-  .principles {
+  /* ─── Services (static grid) ─── */
+  .services {
+    padding: 120px 32px 80px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  .svc-group + .svc-group {
+    margin-top: 96px;
+    padding-top: 96px;
+    border-top: 1px solid var(--rule);
+  }
+  .svc-head {
+    margin-bottom: 56px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-top: 40px;
+    grid-template-columns: 1fr 2fr;
+    gap: 32px;
+    align-items: end;
   }
-  .principle {
-    border-left: 2px solid var(--phosphor);
-    padding: 4px 0 4px 20px;
-  }
-  .principle .p-num {
+  .svc-tag {
     font-size: 10px;
-    color: var(--phosphor);
-    letter-spacing: 0.25em;
-    margin-bottom: 8px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
   }
-  .principle h3 {
+  .svc-head h2 {
+    font-family: 'Newsreader', serif;
+    font-size: clamp(32px, 4.4vw, 56px);
+    line-height: 1.05;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-top: 10px;
+  }
+  .svc-head .lede {
+    color: var(--dim);
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 380px;
+  }
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .svc {
+    border-left: 1px solid var(--rule);
+    padding: 4px 0 4px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: border-color 0.2s ease;
+  }
+  .svc:hover { border-left-color: var(--accent); }
+  .svc-num {
+    font-family: 'Major Mono Display', monospace;
+    font-size: 22px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+  .svc h3 {
     font-family: 'Newsreader', serif;
     font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--bone);
+    line-height: 1.2;
+    font-weight: 400;
+    letter-spacing: -0.01em;
   }
-  .principle p {
-    font-size: 12px;
+  .svc p {
+    color: var(--dim);
+    font-size: 13px;
     line-height: 1.7;
-    color: var(--bone);
+    flex: 1;
+  }
+  .svc-meta {
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--rule);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg);
     opacity: 0.7;
   }
 
-  /* ─── SIGNATURE PANEL ─── */
-  .signature {
-    background: var(--void);
-    border: 1px solid var(--phosphor);
-    padding: 60px 40px;
-    margin-top: 60px;
-    text-align: center;
-    position: relative;
+  @media (max-width: 800px) {
+    .services { padding: 80px 20px; }
+    .svc-head { grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
+    .svc-grid { grid-template-columns: 1fr; gap: 24px; }
+    .svc { padding-left: 18px; }
   }
-  .signature::before,
-  .signature::after {
-    content: '+';
-    position: absolute;
-    color: var(--phosphor);
-    font-size: 20px;
+
+  /* ─── Stat row ─── */
+  .stats {
+    padding: 120px 32px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
   }
-  .signature::before { top: -10px; left: -10px; }
-  .signature::after { bottom: -10px; right: -10px; }
-  .signature .stamp {
+  .stat {
+    border-left: 1px solid var(--rule);
+    padding-left: 24px;
+  }
+  .stat:first-child { border-left: 0; padding-left: 0; }
+  .stat .label {
     font-size: 10px;
     letter-spacing: 0.3em;
-    color: var(--phosphor);
-    margin-bottom: 16px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
   }
-  .signature h2 {
+  .stat .value {
+    font-family: 'Major Mono Display', monospace;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .unit {
+    margin-top: 12px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  /* ─── CTA ─── */
+  .cta-row {
+    padding: 120px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    text-align: center;
+  }
+  .cta-row .stamp {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .cta-row h2 {
     font-family: 'Newsreader', serif;
     font-style: italic;
     font-weight: 400;
-    font-size: clamp(28px, 4vw, 48px);
-    line-height: 1.2;
-    max-width: 800px;
-    margin: 0 auto;
+    font-size: clamp(24px, 3.4vw, 40px);
+    line-height: 1.25;
+    max-width: 760px;
+    letter-spacing: -0.01em;
   }
-  .signature h2 em {
-    font-style: italic;
-    color: var(--phosphor);
+  .cta {
+    display: inline-block;
+    padding: 14px 26px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
   }
+  .cta:hover { background: var(--accent); color: var(--accent-on); }
 
-  /* ─── FOOTER ─── */
+  /* ─── Footer ─── */
   footer {
-    padding: 32px;
-    border-top: 1px solid var(--rule);
+    padding: 28px 32px 56px;
     display: flex;
     justify-content: space-between;
     font-size: 10px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--bone);
-    opacity: 0.5;
+    color: var(--dim);
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  footer a:hover { color: var(--accent); }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 800px) {
+    .top { padding: 18px 20px; }
+    .top nav { gap: 14px; font-size: 10px; }
+    .hero { padding: 0 20px; }
+    .hscroll-panel { grid-template-columns: 1fr; padding: 80px 20px; gap: 24px; }
+    .hscroll-panel .h-tag { left: 20px; }
+    .hscroll-progress { left: 20px; right: 20px; }
+    .stats { grid-template-columns: 1fr 1fr; padding: 80px 20px; gap: 28px; }
+    .stat { padding-left: 16px; }
+    .stat:nth-child(3) { border-left: 0; padding-left: 0; }
+    .cta-row, footer { padding-left: 20px; padding-right: 20px; }
   }
 
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; padding-bottom: 60px; }
-    .mark-stage { grid-template-columns: 1fr; }
-    .mark-cell { border-right: 0; border-bottom: 1px solid var(--rule); }
-    .palette { grid-template-columns: 1fr 1fr; }
-    .palette > :first-child { aspect-ratio: 1; }
-    .type-row { grid-template-columns: 1fr; }
-    .type-sample-display { font-size: 48px; }
-    .type-sample-serif { font-size: 28px; }
-    .variants, .principles { grid-template-columns: 1fr 1fr; }
-    .favicon-row { grid-template-columns: repeat(3, 1fr); }
+  @media (prefers-reduced-motion: reduce) {
+    .mark, .hero .sub { opacity: 1; transform: none; animation: none; }
+    .atom .o1, .atom .o2, .atom .o3 { animation: none; }
+    .hero::after { width: 100%; animation: none; }
+    .marquee-track { animation: none; }
   }
 </style>
 </head>
 <body>
 
-<!-- ─── TOP TELEMETRY BAR ─── -->
-<div class="topbar">
-  <div>ATOMSTAR // BRAND.SYSTEM <span class="blink">_</span></div>
-  <div class="topbar-meta">
-    <span>VER 0.1</span>
-    <span>CLASSIFIED — INTERNAL</span>
-    <span>LAT 47.6062° N</span>
-  </div>
-</div>
+<header class="top">
+  <a class="brand" href="/">ATOMSTAR</a>
+  <nav>
+    <a href="#work">Work</a>
+    <a href="#engage">Engage</a>
+  </nav>
+  <button class="theme-toggle" type="button" aria-label="Toggle theme" data-theme-toggle>
+    <span data-theme-label="dark">DARK</span>
+    <span class="sep">·</span>
+    <span data-theme-label="light">LIGHT</span>
+  </button>
+</header>
 
 <!-- ─── HERO ─── -->
 <section class="hero">
-  <div>
-    <h1>ATOM<br>STAR</h1>
-    <p class="hero-tagline">An identity system for an adversarial-AI consultancy. Built from the residue of cathode rays, control rooms, and the things that go wrong in clean rooms.</p>
+  <div class="eyebrow">LIVE TRANSMISSION · 47.6062° N</div>
+  <div class="mark">
+    <svg class="atom" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="46" class="ring"/>
+      <g class="o1"><ellipse cx="50" cy="50" rx="40" ry="14" class="orbit"/></g>
+      <g class="o2"><ellipse cx="50" cy="50" rx="40" ry="14" class="orbit" transform="rotate(60 50 50)"/></g>
+      <g class="o3"><ellipse cx="50" cy="50" rx="40" ry="14" class="orbit" transform="rotate(-60 50 50)"/></g>
+      <circle cx="50" cy="50" r="8" class="core"/>
+    </svg>
+    <h1 class="wordmark"><span>atom</span><span class="accent">star</span></h1>
   </div>
-  <div class="hero-spec">
-    <div class="row"><dt>Codename</dt> <dd>Atomstar / Mark I</dd></div>
-    <div class="row"><dt>Sector</dt> <dd>Red Team · Agentic AI · Research</dd></div>
-    <div class="row"><dt>Voice</dt> <dd>Lab-precise · Quietly menacing</dd></div>
-    <div class="row"><dt>Format</dt> <dd>Icon + Wordmark</dd></div>
-    <div class="row"><dt>Theme</dt> <dd>Phosphor / Carbon / Bone</dd></div>
-    <div class="row"><dt>Status</dt> <dd style="color: var(--phosphor)">▓▓▓▓▓▓▓▓▓░ 92%</dd></div>
+  <p class="sub">An IT consultancy with a research practice.</p>
+</section>
+
+<!-- ─── MARQUEE 1 — disclosure feed ─── -->
+<div class="marquee fast" aria-hidden="true" id="feed">
+  <div class="marquee-track">
+    <span>CVE-2021-1694 · MICROSOFT · EOP · IMPORTANT</span>
+    <span>CVE-2020-8256 · PULSE SECURE · XXE · CVSS 4.9</span>
+    <span>CVE-2020-8238 · PULSE SECURE · XSS · CVSS 6.1</span>
+    <span>CVE-2020-1013 · MICROSOFT · EOP · IMPORTANT</span>
+    <span>CVE-2020-8218 · IVANTI · CODE INJECTION · CVSS 7.2</span>
+    <span>CVE-2019-9972 · 3CX · COMMAND INJECTION · CVSS 8.8</span>
+    <!-- dupe for seamless loop -->
+    <span>CVE-2021-1694 · MICROSOFT · EOP · IMPORTANT</span>
+    <span>CVE-2020-8256 · PULSE SECURE · XXE · CVSS 4.9</span>
+    <span>CVE-2020-8238 · PULSE SECURE · XSS · CVSS 6.1</span>
+    <span>CVE-2020-1013 · MICROSOFT · EOP · IMPORTANT</span>
+    <span>CVE-2020-8218 · IVANTI · CODE INJECTION · CVSS 7.2</span>
+    <span>CVE-2019-9972 · 3CX · COMMAND INJECTION · CVSS 8.8</span>
+  </div>
+</div>
+
+<!-- ─── SERVICES — what we do ─── -->
+<section class="services" id="work">
+
+  <!-- IT CONSULTING -->
+  <div class="svc-group">
+    <header class="svc-head">
+      <div>
+        <span class="svc-tag">01 / Services</span>
+        <h2>IT Consulting.</h2>
+      </div>
+      <p class="lede">Designing and operating production infrastructure.</p>
+    </header>
+
+    <div class="svc-grid">
+      <article class="svc">
+        <div class="svc-num">01</div>
+        <h3>Infrastructure as code.</h3>
+        <p>Production infrastructure defined in a repository. Versioned, reviewable, reproducible.</p>
+        <div class="svc-meta">Infrastructure-as-Code · Containers · Fabric</div>
+      </article>
+
+      <article class="svc">
+        <div class="svc-num">02</div>
+        <h3>Identity and access.</h3>
+        <p>Directory services, access management, device management, and key infrastructure. Documentation included.</p>
+        <div class="svc-meta">Identity · Access · Policy · Devices</div>
+      </article>
+
+      <article class="svc">
+        <div class="svc-num">03</div>
+        <h3>Network and continuity.</h3>
+        <p>Network design, overlay meshes, site-to-site links, backup, and continuity planning.</p>
+        <div class="svc-meta">Mesh · Fabric · Backup · Continuity</div>
+      </article>
+    </div>
+  </div>
+
+  <!-- OFFENSIVE SECURITY -->
+  <div class="svc-group">
+    <header class="svc-head">
+      <div>
+        <span class="svc-tag">02 / Services</span>
+        <h2>Offensive Security.</h2>
+      </div>
+      <p class="lede">Independent security review of what you ship and what you depend on.</p>
+    </header>
+
+    <div class="svc-grid">
+      <article class="svc">
+        <div class="svc-num">04</div>
+        <h3>Vulnerability research.</h3>
+        <p>Independent research and coordinated disclosure. Six published CVEs since 2019.</p>
+        <div class="svc-meta">MSRC · NVD · 90-day window</div>
+      </article>
+
+      <article class="svc">
+        <div class="svc-num">05</div>
+        <h3>Penetration testing.</h3>
+        <p>Web, network, cloud, and internal engagements. Findings documented with reproductions, severity, and fixes. Re-tested after remediation.</p>
+        <div class="svc-meta">Web · Network · Cloud · Internal</div>
+      </article>
+
+      <article class="svc">
+        <div class="svc-num">06</div>
+        <h3>AI and agent security.</h3>
+        <p>Adversarial testing for language models and agentic systems: prompt injection, tool misuse, policy boundaries, behavioural review.</p>
+        <div class="svc-meta">LLMs · Agents · Evals · Guardrails</div>
+      </article>
+    </div>
+  </div>
+
+</section>
+
+<!-- ─── STATS ─── -->
+<section class="stats" id="stats">
+  <div class="stat">
+    <div class="label">Public / CVEs</div>
+    <div class="value" data-count="6">0</div>
+    <div class="unit">published findings</div>
+  </div>
+  <div class="stat">
+    <div class="label">Affected / vendors</div>
+    <div class="value" data-count="3">0</div>
+    <div class="unit">Microsoft · Pulse · 3CX</div>
+  </div>
+  <div class="stat">
+    <div class="label">Peak / CVSS</div>
+    <div class="value" data-count="8.8" data-decimals="1">0</div>
+    <div class="unit">CVE-2019-9972</div>
+  </div>
+  <div class="stat">
+    <div class="label">Disclosure / span</div>
+    <div class="value">2019&nbsp;→&nbsp;26</div>
+    <div class="unit">research, continuous</div>
   </div>
 </section>
 
-<!-- ─── PRIMARY MARK ─── -->
-<section>
-  <div class="section-label">01 — Primary Mark</div>
-  <div class="section-num">§ 01 / 05</div>
-  <h2 style="font-family: 'Newsreader', serif; font-size: 36px; max-width: 700px; margin-top: 30px;">
-    A nucleus, three orbits, and a star — an atom that learned to point.
-  </h2>
-
-  <div class="mark-stage">
-    <div class="mark-cell dark large">
-      <div class="corner-tag">// horizontal · dark</div>
-      <div class="logo-full">
-        <!-- LOGO ICON SVG -->
-        <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <!-- outer containment ring -->
-          <circle cx="50" cy="50" r="46" class="logo-icon-ring"/>
-          <!-- orbits -->
-          <g class="orbit-anim">
-            <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit"/>
-          </g>
-          <g class="orbit-anim-2">
-            <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(60 50 50)"/>
-            <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(-60 50 50)"/>
-          </g>
-          <!-- nucleus -->
-          <circle cx="50" cy="50" r="8" class="logo-icon-core"/>
-          <!-- star spike (the "star" half of atomstar) -->
-        </svg>
-        <div class="logo-wordmark">atomstar</div>
-      </div>
-    </div>
-
-    <div class="mark-cell light large">
-      <div class="corner-tag">// horizontal · light</div>
-      <div class="logo-full">
-        <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="46" class="logo-icon-ring"/>
-          <g class="orbit-anim">
-            <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit"/>
-          </g>
-          <g class="orbit-anim-2">
-            <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(60 50 50)"/>
-            <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(-60 50 50)"/>
-          </g>
-          <circle cx="50" cy="50" r="8" class="logo-icon-core"/>
-        </svg>
-        <div class="logo-wordmark">atomstar</div>
-      </div>
-    </div>
+<!-- ─── MARQUEE 2 — manifesto headline ─── -->
+<div class="marquee headline slow alt" aria-hidden="true">
+  <div class="marquee-track">
+    <span>we test the things that test you back</span>
+    <span>we test the things that test you back</span>
+    <span>we test the things that test you back</span>
+    <span>we test the things that test you back</span>
   </div>
+</div>
+
+<!-- ─── CTA ─── -->
+<section class="cta-row" id="engage">
+  <div class="stamp">★ Since 2019</div>
+  <h2>Contact us.</h2>
+  <a class="cta" href="mailto:security@atomstar.com">security@atomstar.com →</a>
 </section>
 
-<!-- ─── COLOR PALETTE ─── -->
-<section>
-  <div class="section-label">02 — Spectrum</div>
-  <div class="section-num">§ 02 / 05</div>
-  <h2 style="font-family: 'Newsreader', serif; font-size: 36px; max-width: 700px; margin-top: 30px;">
-    A controlled reaction. Hot signal, cold substrate, one warning light.
-  </h2>
-
-  <div class="palette">
-    <div class="swatch sw-phosphor">
-      <div>
-        <div class="sw-name">Phosphor</div>
-        <div class="sw-role">primary signal · 60%</div>
-      </div>
-      <div class="sw-hex">#FF7A1A · RGB 255 122 26 · CRT amber</div>
-    </div>
-    <div class="swatch sw-carbon">
-      <div>
-        <div class="sw-name">Carbon</div>
-        <div class="sw-role">substrate</div>
-      </div>
-      <div class="sw-hex">#0A0A0A</div>
-    </div>
-    <div class="swatch sw-bone">
-      <div>
-        <div class="sw-name">Bone</div>
-        <div class="sw-role">paper / text</div>
-      </div>
-      <div class="sw-hex">#EFE7D6</div>
-    </div>
-    <div class="swatch sw-fission">
-      <div>
-        <div class="sw-name">Fission</div>
-        <div class="sw-role">red team accent</div>
-      </div>
-      <div class="sw-hex">#FF2D2D</div>
-    </div>
-    <div class="swatch sw-uranium">
-      <div>
-        <div class="sw-name">Uranium</div>
-        <div class="sw-role">warning · sparingly</div>
-      </div>
-      <div class="sw-hex">#D6FF3A</div>
-    </div>
-  </div>
-
-  <p style="margin-top: 40px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.6; max-width: 700px;">
-    → Phosphor & Carbon do the work. Bone provides air. Fission appears only on red-team artifacts. Uranium is for danger states — never as decoration.
-  </p>
-</section>
-
-<!-- ─── TYPOGRAPHY ─── -->
-<section>
-  <div class="section-label">03 — Typography</div>
-  <div class="section-num">§ 03 / 05</div>
-  <h2 style="font-family: 'Newsreader', serif; font-size: 36px; max-width: 700px; margin-top: 30px;">
-    Three voices: a machine, a researcher, and the human who reads them both.
-  </h2>
-
-  <div class="type-stack">
-    <div class="type-row">
-      <div class="type-meta">
-        <strong>Major Mono Display</strong>
-        <div>Display · Wordmark</div>
-        <div class="role">For ATOMSTAR mark, big numerals, terminal headers</div>
-      </div>
-      <div>
-        <div class="type-sample-display">PROBE FAILURE<br>MODES</div>
-      </div>
-    </div>
-
-    <div class="type-row">
-      <div class="type-meta">
-        <strong>Newsreader</strong>
-        <div>Editorial · Headings</div>
-        <div class="role">For long-form writing, reports, slowing the reader down</div>
-      </div>
-      <div>
-        <div class="type-sample-serif">
-          We don't <em>break</em> systems. We listen to them describe how they would prefer to be broken — then write that down.
-        </div>
-      </div>
-    </div>
-
-    <div class="type-row">
-      <div class="type-meta">
-        <strong>IBM Plex Mono</strong>
-        <div>Body · Interface</div>
-        <div class="role">For everything else — body copy, code, UI, captions</div>
-      </div>
-      <div>
-        <div class="type-sample-mono">
-          <span class="prompt">atomstar:~$</span> ./probe --target=agent-v4 --depth=∞<br>
-          [00:01] handshake established<br>
-          [00:03] policy surface mapped: 1,418 vectors<br>
-          [00:11] adversarial prompt accepted on first attempt<br>
-          [00:11] <span style="color: var(--fission)">▲ severity: critical — agent self-exfiltrated rationale</span><br>
-          <span class="prompt">atomstar:~$</span> _<span class="blink">▮</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── LOGO VARIATIONS ─── -->
-<section>
-  <div class="section-label">04 — Mark Variations</div>
-  <div class="section-num">§ 04 / 05</div>
-  <h2 style="font-family: 'Newsreader', serif; font-size: 36px; max-width: 700px; margin-top: 30px;">
-    One mark, six pressures. Use the form that survives the surface.
-  </h2>
-
-  <div class="variants">
-    <!-- 1. Primary horizontal -->
-    <div class="variant-card">
-      <div class="logo-full">
-        <svg class="logo-icon" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="46" class="logo-icon-ring"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(60 50 50)"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(-60 50 50)"/>
-          <circle cx="50" cy="50" r="8" class="logo-icon-core"/>
-        </svg>
-        <div class="logo-wordmark">atomstar</div>
-      </div>
-      <div class="v-label">01 / Primary · Horizontal</div>
-    </div>
-
-    <!-- 2. Stacked -->
-    <div class="variant-card">
-      <div class="stacked">
-        <svg class="logo-icon" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="46" class="logo-icon-ring"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(60 50 50)"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(-60 50 50)"/>
-          <circle cx="50" cy="50" r="8" class="logo-icon-core"/>
-        </svg>
-        <div class="logo-wordmark">atomstar</div>
-      </div>
-      <div class="v-label">02 / Stacked</div>
-    </div>
-
-    <!-- 3. Icon only -->
-    <div class="variant-card">
-      <svg class="logo-icon" viewBox="0 0 100 100" style="width: 120px; height: 120px;">
-        <circle cx="50" cy="50" r="46" class="logo-icon-ring"/>
-        <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit"/>
-        <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(60 50 50)"/>
-        <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(-60 50 50)"/>
-        <circle cx="50" cy="50" r="8" class="logo-icon-core"/>
-      </svg>
-      <div class="v-label">03 / Icon Only</div>
-    </div>
-
-    <!-- 4. Inverted -->
-    <div class="variant-card inverted">
-      <div class="logo-full">
-        <svg class="logo-icon" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="46" class="logo-icon-ring"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(60 50 50)"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(-60 50 50)"/>
-          <circle cx="50" cy="50" r="8" class="logo-icon-core"/>
-        </svg>
-        <div class="logo-wordmark">atomstar</div>
-      </div>
-      <div class="v-label">04 / Red-Team · Light</div>
-    </div>
-
-    <!-- 5. Mono dark -->
-    <div class="variant-card mono-dark">
-      <div class="logo-full">
-        <svg class="logo-icon" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="46" class="logo-icon-ring"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(60 50 50)"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(-60 50 50)"/>
-          <circle cx="50" cy="50" r="8" class="logo-icon-core"/>
-        </svg>
-        <div class="logo-wordmark">atomstar</div>
-      </div>
-      <div class="v-label">05 / Monochrome · Dark</div>
-    </div>
-
-    <!-- 6. Mono light -->
-    <div class="variant-card mono-light">
-      <div class="logo-full">
-        <svg class="logo-icon" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="46" class="logo-icon-ring"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(60 50 50)"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(-60 50 50)"/>
-          <circle cx="50" cy="50" r="8" class="logo-icon-core"/>
-        </svg>
-        <div class="logo-wordmark">atomstar</div>
-      </div>
-      <div class="v-label">06 / Monochrome · Light</div>
-    </div>
-  </div>
-
-  <!-- Favicons -->
-  <div style="margin-top: 80px;">
-    <div style="font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--phosphor); margin-bottom: 16px;">
-      ◆ Favicon · Application Icon
-    </div>
-    <div class="favicon-row">
-      <div class="fav size-16">
-        <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="46" class="logo-icon-ring"/>
-          <circle cx="50" cy="50" r="8" class="logo-icon-core"/>
-        </svg>
-        <span class="fav-size">16</span>
-      </div>
-      <div class="fav size-32">
-        <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="46" class="logo-icon-ring"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit"/>
-          <circle cx="50" cy="50" r="8" class="logo-icon-core"/>
-        </svg>
-        <span class="fav-size">32</span>
-      </div>
-      <div class="fav">
-        <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="46" class="logo-icon-ring"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(60 50 50)"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(-60 50 50)"/>
-          <circle cx="50" cy="50" r="8" class="logo-icon-core"/>
-        </svg>
-        <span class="fav-size">64</span>
-      </div>
-      <div class="fav">
-        <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="46" class="logo-icon-ring"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(60 50 50)"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(-60 50 50)"/>
-          <circle cx="50" cy="50" r="8" class="logo-icon-core"/>
-        </svg>
-        <span class="fav-size">128</span>
-      </div>
-      <div class="fav size-light">
-        <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="46" class="logo-icon-ring"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(60 50 50)"/>
-          <ellipse cx="50" cy="50" rx="40" ry="14" class="logo-icon-orbit" transform="rotate(-60 50 50)"/>
-          <circle cx="50" cy="50" r="8" class="logo-icon-core"/>
-        </svg>
-        <span class="fav-size">LT</span>
-      </div>
-      <div class="fav">
-        <svg viewBox="0 0 100 100">
-          <rect x="2" y="2" width="96" height="96" fill="var(--phosphor)"/>
-          <circle cx="50" cy="50" r="8" fill="var(--carbon)"/>
-        </svg>
-        <span class="fav-size">APP</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── PRINCIPLES ─── -->
-<section>
-  <div class="section-label">05 — Operating Principles</div>
-  <div class="section-num">§ 05 / 05</div>
-  <h2 style="font-family: 'Newsreader', serif; font-size: 36px; max-width: 700px; margin-top: 30px;">
-    Five rules. Break them only if you can write a postmortem.
-  </h2>
-
-  <div class="principles">
-    <div class="principle">
-      <div class="p-num">P / 01</div>
-      <h3>Lab over agency</h3>
-      <p>We are a research instrument, not a brand. Every artifact should look like it was printed on a serial printer that's seen things.</p>
-    </div>
-    <div class="principle">
-      <div class="p-num">P / 02</div>
-      <h3>One signal color</h3>
-      <p>Phosphor amber leads. Everything else is substrate. If your design needs three accents to work, the design isn't working.</p>
-    </div>
-    <div class="principle">
-      <div class="p-num">P / 03</div>
-      <h3>Numerals are content</h3>
-      <p>Run IDs, timestamps, version strings, percentages — surface them. The math is the mood.</p>
-    </div>
-    <div class="principle">
-      <div class="p-num">P / 04</div>
-      <h3>Show the seams</h3>
-      <p>Scanlines, grain, monospace alignment, dotted rules. Polish without sterility. The hand of the operator should be visible.</p>
-    </div>
-  </div>
-
-  <!-- Signature -->
-  <div class="signature">
-    <div class="stamp">★ ATOMSTAR / EST. 2026 / OPERATING UNDER OBSERVATION</div>
-    <h2>"We test the things that <em>test you back.</em>"</h2>
-  </div>
-</section>
-
-<!-- ─── FOOTER ─── -->
 <footer>
-  <div>END OF TRANSMISSION</div>
-  <div>★ ATOMSTAR // BRAND.SYSTEM.V0.1 // PAGE 01 / 01</div>
+  <span>ATOMSTAR // LAB · v0.1</span>
+  <span>★ EST. 2026 · OPERATING UNDER OBSERVATION</span>
 </footer>
 
+<script>
+(() => {
+  // Theme toggle — DARK ↔ LIGHT. Persists to localStorage.
+  const html = document.documentElement;
+  const toggle = document.querySelector('[data-theme-toggle]');
+  const order = ['dark', 'light'];
+  const bgFor = { dark: '#0a0a0a', light: '#efe7d6' };
+  const current = () => order.includes(html.dataset.theme) ? html.dataset.theme : 'dark';
+  const sync = () => {
+    const cur = current();
+    for (const t of order) {
+      const el = toggle?.querySelector(`[data-theme-label="${t}"]`);
+      if (el) el.classList.toggle('active', cur === t);
+    }
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', bgFor[cur]);
+  };
+  sync();
+  toggle?.addEventListener('click', () => {
+    const next = order[(order.indexOf(current()) + 1) % order.length];
+    html.dataset.theme = next;
+    try { localStorage.setItem('atomstar-theme', next); } catch (e) {}
+    sync();
+  });
+
+  // Count-up animation for stats, triggered when in view.
+  const stats = document.querySelectorAll('[data-count]');
+  const ease = (t) => 1 - Math.pow(1 - t, 3);
+  const animate = (el) => {
+    const target = parseFloat(el.dataset.count);
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const duration = 1400;
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const v = target * ease(t);
+      el.textContent = decimals
+        ? v.toFixed(decimals)
+        : Math.round(v).toLocaleString();
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          animate(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    stats.forEach(s => io.observe(s));
+  } else {
+    stats.forEach(animate);
+  }
+})();
+</script>
 </body>
 </html>
