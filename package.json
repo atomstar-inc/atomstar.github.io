@@ -8,7 +8,9 @@
     "test": "eleventy && node --test 'test/*.test.mjs'"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy": "^3.0.0"
+  },
+  "optionalDependencies": {
     "sharp": "^0.35.4"
   }
 }
