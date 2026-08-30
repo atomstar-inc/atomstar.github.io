@@ -6,7 +6,8 @@
     "ogDescription": "Ingénierie d'infrastructure, d'identité et de continuité, tests d'intrusion, recherche de vulnérabilités et sécurité des agents IA."
   },
   "nav": { "work": "Services", "engage": "Nous joindre" },
-  "theme": { "dark": "SOMBRE", "light": "CLAIR" },
+  "theme": { "dark": "SOMBRE", "light": "CLAIR", "switchToDark": "Passer au thème sombre", "switchToLight": "Passer au thème clair" },
+  "skipToContent": "Aller au contenu",
   "langSwitch": { "label": "EN", "aria": "View this page in English" },
   "hero": {
     "eyebrow": "TRANSMISSION EN DIRECT",
