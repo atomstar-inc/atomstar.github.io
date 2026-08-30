@@ -321,6 +321,12 @@ Note: the parity call reads `fr.json`, which does not exist until Task 3. Task 2
 cp src/_data/en.json src/_data/fr.json
 ```
 
+**This placeholder must not survive Task 3.** Between here and the end of Task
+3, `fr.json` is English text under French keys: the parity guard is satisfied
+while the site is still monolingual, so the guard cannot catch it. Task 7
+Step 1 asserts the two files differ, which is the check that closes this
+window. Do not defer Task 3 past a merge.
+
 - [ ] **Step 6: Create `src/_includes/layout.njk`**
 
 Transcribe from `test/fixtures/baseline-index.html`:
@@ -930,6 +936,14 @@ rm -rf node_modules _site && npm ci && npm test && npx @11ty/eleventy
 ```
 
 Expected: tests pass, build succeeds, no warnings about missing data.
+
+Then confirm the French file is genuinely French, not the Task 2 placeholder:
+
+```bash
+diff -q src/_data/en.json src/_data/fr.json && echo "FAIL — fr.json is still the English placeholder" || echo "ok — fr.json diverges from en.json"
+```
+
+Expected: `ok`.
 
 - [ ] **Step 2: Confirm no forbidden strings survive**
 
