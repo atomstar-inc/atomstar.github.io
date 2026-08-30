@@ -7,6 +7,22 @@
 <title>{{ t.meta.title }}</title>
 <meta name="theme-color" content="#0a0a0a" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="description" content="{{ t.meta.description }}" />
+<link rel="canonical" href="{{ site.origin }}/{{ lang }}/" />
+<link rel="alternate" hreflang="en" href="{{ site.origin }}/en/" />
+<link rel="alternate" hreflang="fr" href="{{ site.origin }}/fr/" />
+<link rel="alternate" hreflang="x-default" href="{{ site.origin }}/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{{ t.meta.ogTitle }}" />
+<meta property="og:description" content="{{ t.meta.ogDescription }}" />
+<meta property="og:url" content="{{ site.origin }}/{{ lang }}/" />
+<meta property="og:image" content="{{ site.origin }}/og.png" />
+<meta property="og:locale" content="{{ 'en_CA' if lang == 'en' else 'fr_CA' }}" />
+<meta property="og:locale:alternate" content="{{ 'fr_CA' if lang == 'en' else 'en_CA' }}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ t.meta.ogTitle }}" />
+<meta name="twitter:description" content="{{ t.meta.ogDescription }}" />
+<meta name="twitter:image" content="{{ site.origin }}/og.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Newsreader:opsz,wght,ital@6..72,400,0;6..72,400,1&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
