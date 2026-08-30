@@ -1,0 +1,55 @@
+---
+permalink: /index.html
+eleventyExcludeFromCollections: true
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ATOMSTAR</title>
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="canonical" href="{{ site.origin }}/" />
+<link rel="alternate" hreflang="en" href="{{ site.origin }}/en/" />
+<link rel="alternate" hreflang="fr" href="{{ site.origin }}/fr/" />
+<link rel="alternate" hreflang="x-default" href="{{ site.origin }}/" />
+{% raw %}<style>
+  html, body { margin: 0; height: 100%; background: #0a0a0a; color: #efe7d6;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+  .wrap { height: 100%; display: flex; flex-direction: column; gap: 20px;
+    align-items: center; justify-content: center; }
+  .brand { color: #ff7a1a; letter-spacing: 0.25em; font-size: 13px; text-transform: uppercase; }
+  .choice { display: flex; gap: 18px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; }
+  .choice a { color: #efe7d6; text-decoration: none; border-bottom: 1px solid rgba(239,231,214,0.3); padding-bottom: 2px; }
+  .choice a:hover { color: #ff7a1a; border-color: #ff7a1a; }
+</style>
+<script>
+  (() => {
+    const langs = ['en', 'fr'];
+    let target;
+    try {
+      const stored = localStorage.getItem('atomstar-lang');
+      if (langs.includes(stored)) target = stored;
+    } catch (e) {}
+    if (!target) {
+      const prefs = navigator.languages || [navigator.language || 'en'];
+      target = Array.prototype.some.call(prefs, (l) => String(l).toLowerCase().startsWith('fr')) ? 'fr' : 'en';
+    }
+    // replace() so the shim takes no history entry and cannot trap Back.
+    location.replace('/' + target + '/');
+  })();
+</script>{% endraw %}
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">ATOMSTAR</div>
+  <noscript>
+    <div class="choice">
+      <a href="/fr/" hreflang="fr">Français</a>
+      <a href="/en/" hreflang="en">English</a>
+    </div>
+  </noscript>
+</div>
+</body>
+</html>
