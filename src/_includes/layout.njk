@@ -466,8 +466,12 @@
 
   /* ─── Responsive ─── */
   @media (max-width: 800px) {
-    .top { padding: 18px 20px; }
-    .top nav { gap: 14px; font-size: 10px; }
+    /* bilingual header carries a 4th control and longer French labels;
+       wrap rather than overflow the viewport horizontally */
+    .top { padding: 18px 20px; flex-wrap: wrap; gap: 10px 14px; }
+    /* drop margin-left:auto so items pack two-per-row instead of one */
+    .top nav { gap: 14px; font-size: 10px; margin-left: 0; }
+    .lang-switch, .theme-toggle { padding: 5px 7px; font-size: 9px; }
     .hero { padding: 0 20px; }
     .hscroll-panel { grid-template-columns: 1fr; padding: 80px 20px; gap: 24px; }
     .hscroll-panel .h-tag { left: 20px; }
