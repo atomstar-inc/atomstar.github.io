@@ -40,7 +40,7 @@
     { "label": "Peak / CVSS", "unit": "CVE-2019-9972" },
     { "label": "Disclosure / span", "unit": "research, continuous" }
   ],
-  "marquee": "we test the things that test you back",
+  "marquee": "built by people who know how it breaks",
   "cta": { "stamp": "★ Since 2019", "title": "Contact us." },
   "footer": { "left": "ATOMSTAR", "right": "★ EST. 2019 · OPERATING UNDER OBSERVATION" }
 }
