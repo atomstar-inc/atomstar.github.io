@@ -1,46 +1,46 @@
 {
   "meta": {
-    "title": "ATOMSTAR · IT Consulting and Adversarial Research",
-    "description": "Atomstar is a Quebec IT consultancy with an offensive security research practice: infrastructure, identity, penetration testing, and AI agent security.",
-    "ogTitle": "ATOMSTAR — IT Consulting and Adversarial Research",
-    "ogDescription": "Infrastructure, identity and continuity engineering, plus penetration testing, vulnerability research and AI agent security."
+    "title": "ATOMSTAR · Conseil TI et recherche offensive",
+    "description": "Atomstar est une société de conseil en TI du Québec dotée d'une pratique de recherche en sécurité offensive : infrastructure, identité, tests d'intrusion et sécurité des agents IA.",
+    "ogTitle": "ATOMSTAR — Conseil TI et recherche offensive",
+    "ogDescription": "Ingénierie d'infrastructure, d'identité et de continuité, tests d'intrusion, recherche de vulnérabilités et sécurité des agents IA."
   },
-  "nav": { "work": "Work", "engage": "Engage" },
-  "theme": { "dark": "DARK", "light": "LIGHT" },
-  "langSwitch": { "label": "FR", "aria": "Voir cette page en français" },
+  "nav": { "work": "Services", "engage": "Nous joindre" },
+  "theme": { "dark": "SOMBRE", "light": "CLAIR" },
+  "langSwitch": { "label": "EN", "aria": "View this page in English" },
   "hero": {
-    "eyebrow": "LIVE TRANSMISSION",
-    "sub": "An IT consultancy with a research practice."
+    "eyebrow": "TRANSMISSION EN DIRECT",
+    "sub": "Une société de conseil en TI dotée d'une pratique de recherche."
   },
   "services": {
     "consulting": {
       "tag": "01 / Services",
-      "title": "IT Consulting.",
-      "lede": "Designing and operating production infrastructure.",
+      "title": "Conseil TI.",
+      "lede": "Conception et exploitation d'infrastructures de production.",
       "cards": [
-        { "num": "01", "title": "Infrastructure as code.", "body": "Production infrastructure defined in a repository. Versioned, reviewable, reproducible.", "meta": "Infrastructure-as-Code · Containers · Fabric" },
-        { "num": "02", "title": "Identity and access.", "body": "Directory services, access management, device management, and key infrastructure. Documentation included.", "meta": "Identity · Access · Policy · Devices" },
-        { "num": "03", "title": "Network and continuity.", "body": "Network design, overlay meshes, site-to-site links, backup, and continuity planning.", "meta": "Mesh · Fabric · Backup · Continuity" }
+        { "num": "01", "title": "L'infrastructure comme code.", "body": "Une infrastructure de production définie dans un dépôt. Versionnée, révisable, reproductible.", "meta": "Infrastructure-as-Code · Conteneurs · Fabric" },
+        { "num": "02", "title": "Identité et accès.", "body": "Services d'annuaire, gestion des accès, gestion des appareils et infrastructure à clés. Documentation incluse.", "meta": "Identité · Accès · Politiques · Appareils" },
+        { "num": "03", "title": "Réseau et continuité.", "body": "Conception réseau, maillages overlay, liens site à site, sauvegarde et planification de la continuité.", "meta": "Maillage · Fabric · Sauvegarde · Continuité" }
       ]
     },
     "offensive": {
       "tag": "02 / Services",
-      "title": "Offensive Security.",
-      "lede": "Independent security review of what you ship and what you depend on.",
+      "title": "Sécurité offensive.",
+      "lede": "Revue de sécurité indépendante de ce que vous livrez et de ce dont vous dépendez.",
       "cards": [
-        { "num": "04", "title": "Vulnerability research.", "body": "Independent research and coordinated disclosure. Six published CVEs since 2019.", "meta": "MSRC · NVD · 90-day window" },
-        { "num": "05", "title": "Penetration testing.", "body": "Web, network, cloud, and internal engagements. Findings documented with reproductions, severity, and fixes. Re-tested after remediation.", "meta": "Web · Network · Cloud · Internal" },
-        { "num": "06", "title": "AI and agent security.", "body": "Adversarial testing for language models and agentic systems: prompt injection, tool misuse, policy boundaries, behavioural review.", "meta": "LLMs · Agents · Evals · Guardrails" }
+        { "num": "04", "title": "Recherche de vulnérabilités.", "body": "Recherche indépendante et divulgation coordonnée. Six CVE publiées depuis 2019.", "meta": "MSRC · NVD · fenêtre de 90 jours" },
+        { "num": "05", "title": "Tests d'intrusion.", "body": "Mandats web, réseau, infonuagique et interne. Constats documentés avec reproductions, sévérité et correctifs. Retestés après remédiation.", "meta": "Web · Réseau · Infonuagique · Interne" },
+        { "num": "06", "title": "Sécurité de l'IA et des agents.", "body": "Tests adverses pour les modèles de langage et les systèmes agentiques : injection de prompt, détournement d'outils, limites des politiques, revue comportementale.", "meta": "LLM · Agents · Évaluations · Garde-fous" }
       ]
     }
   },
   "stats": [
-    { "label": "Public / CVEs", "unit": "published findings" },
-    { "label": "Affected / vendors", "unit": "Microsoft · Pulse · 3CX" },
-    { "label": "Peak / CVSS", "unit": "CVE-2019-9972" },
-    { "label": "Disclosure / span", "unit": "research, continuous" }
+    { "label": "Public / CVE", "unit": "constats publiés" },
+    { "label": "Fournisseurs / touchés", "unit": "Microsoft · Pulse · 3CX" },
+    { "label": "Sommet / CVSS", "unit": "CVE-2019-9972" },
+    { "label": "Divulgation / période", "unit": "recherche, en continu" }
   ],
-  "marquee": "we test the things that test you back",
-  "cta": { "stamp": "★ Since 2019", "title": "Contact us." },
-  "footer": { "left": "ATOMSTAR", "right": "★ EST. 2019 · OPERATING UNDER OBSERVATION" }
+  "marquee": "nous testons ce qui vous teste en retour",
+  "cta": { "stamp": "★ Depuis 2019", "title": "Contactez-nous." },
+  "footer": { "left": "ATOMSTAR", "right": "★ FONDÉE EN 2019 · SOUS OBSERVATION" }
 }
