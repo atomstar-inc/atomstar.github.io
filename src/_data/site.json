@@ -1,0 +1,19 @@
+{
+  "origin": "https://atomstar.com",
+  "email": "contact@atomstar.com",
+  "founded": 2019,
+  "feed": [
+    "CVE-2021-1694 · MICROSOFT · EOP · IMPORTANT",
+    "CVE-2020-8256 · PULSE SECURE · XXE · CVSS 4.9",
+    "CVE-2020-8238 · PULSE SECURE · XSS · CVSS 6.1",
+    "CVE-2020-1013 · MICROSOFT · EOP · IMPORTANT",
+    "CVE-2020-8218 · IVANTI · CODE INJECTION · CVSS 7.2",
+    "CVE-2019-9972 · 3CX · COMMAND INJECTION · CVSS 8.8"
+  ],
+  "statValues": [
+    { "count": "6" },
+    { "count": "3" },
+    { "count": "8.8", "decimals": "1" },
+    { "static": "2019&nbsp;→&nbsp;26" }
+  ]
+}
