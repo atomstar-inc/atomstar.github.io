@@ -5,9 +5,18 @@
     "ogTitle": "ATOMSTAR — IT Consulting and Adversarial Research",
     "ogDescription": "Infrastructure, identity and continuity engineering, plus penetration testing, vulnerability research and AI agent security."
   },
-  "nav": { "work": "Work", "engage": "Engage" },
-  "theme": { "dark": "DARK", "light": "LIGHT" },
-  "langSwitch": { "label": "FR", "aria": "Voir cette page en français" },
+  "nav": {
+    "work": "Work",
+    "engage": "Engage"
+  },
+  "theme": {
+    "dark": "DARK",
+    "light": "LIGHT"
+  },
+  "langSwitch": {
+    "label": "FR",
+    "aria": "Voir cette page en français"
+  },
   "hero": {
     "eyebrow": "LIVE TRANSMISSION",
     "sub": "An IT consultancy with a research practice."
@@ -18,9 +27,24 @@
       "title": "IT Consulting.",
       "lede": "Designing and operating production infrastructure.",
       "cards": [
-        { "num": "01", "title": "Infrastructure as code.", "body": "Production infrastructure defined in a repository. Versioned, reviewable, reproducible.", "meta": "Infrastructure-as-Code · Containers · Fabric" },
-        { "num": "02", "title": "Identity and access.", "body": "Directory services, access management, device management, and key infrastructure. Documentation included.", "meta": "Identity · Access · Policy · Devices" },
-        { "num": "03", "title": "Network and continuity.", "body": "Network design, overlay meshes, site-to-site links, backup, and continuity planning.", "meta": "Mesh · Fabric · Backup · Continuity" }
+        {
+          "num": "01",
+          "title": "Infrastructure as code.",
+          "body": "Production infrastructure defined in a repository. Versioned, reviewable, reproducible.",
+          "meta": "Infrastructure-as-Code · Containers · Fabric"
+        },
+        {
+          "num": "02",
+          "title": "Identity and access.",
+          "body": "Directory services, access management, device management, and key infrastructure. Documentation included.",
+          "meta": "Identity · Access · Policy · Devices"
+        },
+        {
+          "num": "03",
+          "title": "Network and continuity.",
+          "body": "Network design, overlay meshes, site-to-site links, backup, and continuity planning.",
+          "meta": "Mesh · Fabric · Backup · Continuity"
+        }
       ]
     },
     "offensive": {
@@ -28,19 +52,52 @@
       "title": "Offensive Security.",
       "lede": "Independent security review of what you ship and what you depend on.",
       "cards": [
-        { "num": "04", "title": "Vulnerability research.", "body": "Independent research and coordinated disclosure. Six published CVEs since 2019.", "meta": "MSRC · NVD · 90-day window" },
-        { "num": "05", "title": "Penetration testing.", "body": "Web, network, cloud, and internal engagements. Findings documented with reproductions, severity, and fixes. Re-tested after remediation.", "meta": "Web · Network · Cloud · Internal" },
-        { "num": "06", "title": "AI and agent security.", "body": "Adversarial testing for language models and agentic systems: prompt injection, tool misuse, policy boundaries, behavioural review.", "meta": "LLMs · Agents · Evals · Guardrails" }
+        {
+          "num": "04",
+          "title": "Vulnerability research.",
+          "body": "Independent research and coordinated disclosure. Six published CVEs since 2019.",
+          "meta": "MSRC · NVD · 90-day window"
+        },
+        {
+          "num": "05",
+          "title": "Penetration testing.",
+          "body": "Web, network, cloud, and internal engagements. Findings documented with reproductions, severity, and fixes. Re-tested after remediation.",
+          "meta": "Web · Network · Cloud · Internal"
+        },
+        {
+          "num": "06",
+          "title": "AI and agent security.",
+          "body": "Adversarial testing for language models and agentic systems: prompt injection, tool misuse, policy boundaries, behavioural review.",
+          "meta": "LLMs · Agents · Evals · Guardrails"
+        }
       ]
     }
   },
   "stats": [
-    { "label": "Public / CVEs", "unit": "published findings" },
-    { "label": "Affected / vendors", "unit": "Microsoft · Pulse · 3CX" },
-    { "label": "Peak / CVSS", "unit": "CVE-2019-9972" },
-    { "label": "Disclosure / span", "unit": "research, continuous" }
+    {
+      "label": "Public / CVEs",
+      "unit": "published findings"
+    },
+    {
+      "label": "Affected / vendors",
+      "unit": "Microsoft · Pulse · 3CX"
+    },
+    {
+      "label": "Peak / CVSS",
+      "unit": "CVE-2019-9972"
+    },
+    {
+      "label": "Disclosure / span",
+      "unit": "research, continuous"
+    }
   ],
-  "marquee": "we test the things that test you back",
-  "cta": { "stamp": "★ Since 2019", "title": "Contact us." },
-  "footer": { "left": "ATOMSTAR", "right": "★ EST. 2019 · OPERATING UNDER OBSERVATION" }
+  "marquee": "built by people who know how it breaks",
+  "cta": {
+    "stamp": "★ Since 2019",
+    "title": "Contact us."
+  },
+  "footer": {
+    "left": "ATOMSTAR",
+    "right": "★ EST. 2019 · OPERATING UNDER OBSERVATION"
+  }
 }

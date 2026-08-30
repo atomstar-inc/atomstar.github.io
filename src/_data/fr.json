@@ -5,9 +5,18 @@
     "ogTitle": "ATOMSTAR — Conseil TI et recherche offensive",
     "ogDescription": "Ingénierie d'infrastructure, d'identité et de continuité, tests d'intrusion, recherche de vulnérabilités et sécurité des agents IA."
   },
-  "nav": { "work": "Services", "engage": "Nous joindre" },
-  "theme": { "dark": "SOMBRE", "light": "CLAIR" },
-  "langSwitch": { "label": "EN", "aria": "View this page in English" },
+  "nav": {
+    "work": "Services",
+    "engage": "Nous joindre"
+  },
+  "theme": {
+    "dark": "SOMBRE",
+    "light": "CLAIR"
+  },
+  "langSwitch": {
+    "label": "EN",
+    "aria": "View this page in English"
+  },
   "hero": {
     "eyebrow": "TRANSMISSION EN DIRECT",
     "sub": "Une société de conseil en TI dotée d'une pratique de recherche."
@@ -18,9 +27,24 @@
       "title": "Conseil TI.",
       "lede": "Conception et exploitation d'infrastructures de production.",
       "cards": [
-        { "num": "01", "title": "L'infrastructure comme code.", "body": "Une infrastructure de production définie dans un dépôt. Versionnée, révisable, reproductible.", "meta": "Infrastructure-as-Code · Conteneurs · Fabric" },
-        { "num": "02", "title": "Identité et accès.", "body": "Services d'annuaire, gestion des accès, gestion des appareils et infrastructure à clés. Documentation incluse.", "meta": "Identité · Accès · Politiques · Appareils" },
-        { "num": "03", "title": "Réseau et continuité.", "body": "Conception réseau, maillages overlay, liens site à site, sauvegarde et planification de la continuité.", "meta": "Maillage · Fabric · Sauvegarde · Continuité" }
+        {
+          "num": "01",
+          "title": "L'infrastructure comme code.",
+          "body": "Une infrastructure de production définie dans un dépôt. Versionnée, révisable, reproductible.",
+          "meta": "Infrastructure-as-Code · Conteneurs · Fabric"
+        },
+        {
+          "num": "02",
+          "title": "Identité et accès.",
+          "body": "Services d'annuaire, gestion des accès, gestion des appareils et infrastructure à clés. Documentation incluse.",
+          "meta": "Identité · Accès · Politiques · Appareils"
+        },
+        {
+          "num": "03",
+          "title": "Réseau et continuité.",
+          "body": "Conception réseau, maillages overlay, liens site à site, sauvegarde et planification de la continuité.",
+          "meta": "Maillage · Fabric · Sauvegarde · Continuité"
+        }
       ]
     },
     "offensive": {
@@ -28,19 +52,52 @@
       "title": "Sécurité offensive.",
       "lede": "Revue de sécurité indépendante de ce que vous livrez et de ce dont vous dépendez.",
       "cards": [
-        { "num": "04", "title": "Recherche de vulnérabilités.", "body": "Recherche indépendante et divulgation coordonnée. Six CVE publiées depuis 2019.", "meta": "MSRC · NVD · fenêtre de 90 jours" },
-        { "num": "05", "title": "Tests d'intrusion.", "body": "Mandats web, réseau, infonuagique et interne. Constats documentés avec reproductions, sévérité et correctifs. Retestés après remédiation.", "meta": "Web · Réseau · Infonuagique · Interne" },
-        { "num": "06", "title": "Sécurité de l'IA et des agents.", "body": "Tests adverses pour les modèles de langage et les systèmes agentiques : injection de prompt, détournement d'outils, limites des politiques, revue comportementale.", "meta": "LLM · Agents · Évaluations · Garde-fous" }
+        {
+          "num": "04",
+          "title": "Recherche de vulnérabilités.",
+          "body": "Recherche indépendante et divulgation coordonnée. Six CVE publiées depuis 2019.",
+          "meta": "MSRC · NVD · fenêtre de 90 jours"
+        },
+        {
+          "num": "05",
+          "title": "Tests d'intrusion.",
+          "body": "Mandats web, réseau, infonuagique et interne. Constats documentés avec reproductions, sévérité et correctifs. Retestés après remédiation.",
+          "meta": "Web · Réseau · Infonuagique · Interne"
+        },
+        {
+          "num": "06",
+          "title": "Sécurité de l'IA et des agents.",
+          "body": "Tests adverses pour les modèles de langage et les systèmes agentiques : injection de prompt, détournement d'outils, limites des politiques, revue comportementale.",
+          "meta": "LLM · Agents · Évaluations · Garde-fous"
+        }
       ]
     }
   },
   "stats": [
-    { "label": "Public / CVE", "unit": "constats publiés" },
-    { "label": "Fournisseurs / touchés", "unit": "Microsoft · Pulse · 3CX" },
-    { "label": "Sommet / CVSS", "unit": "CVE-2019-9972" },
-    { "label": "Divulgation / période", "unit": "recherche, en continu" }
+    {
+      "label": "Public / CVE",
+      "unit": "constats publiés"
+    },
+    {
+      "label": "Fournisseurs / touchés",
+      "unit": "Microsoft · Pulse · 3CX"
+    },
+    {
+      "label": "Sommet / CVSS",
+      "unit": "CVE-2019-9972"
+    },
+    {
+      "label": "Divulgation / période",
+      "unit": "recherche, en continu"
+    }
   ],
-  "marquee": "nous testons ce qui vous teste en retour",
-  "cta": { "stamp": "★ Depuis 2019", "title": "Contactez-nous." },
-  "footer": { "left": "ATOMSTAR", "right": "★ FONDÉE EN 2019 · SOUS OBSERVATION" }
+  "marquee": "bâti par ceux qui savent comment ça casse",
+  "cta": {
+    "stamp": "★ Depuis 2019",
+    "title": "Contactez-nous."
+  },
+  "footer": {
+    "left": "ATOMSTAR",
+    "right": "★ FONDÉE EN 2019 · SOUS OBSERVATION"
+  }
 }
