@@ -1,0 +1,17 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+{%- set pages = [{ "loc": "/", "hreflang": "x-default" }, { "loc": "/en/", "hreflang": "en" }, { "loc": "/fr/", "hreflang": "fr" }] %}
+{%- for page in pages %}
+  <url>
+    <loc>{{ site.origin }}{{ page.loc }}</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="{{ site.origin }}/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="{{ site.origin }}/en/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="{{ site.origin }}/fr/"/>
+  </url>
+{%- endfor %}
+</urlset>

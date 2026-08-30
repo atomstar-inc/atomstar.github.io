@@ -5,7 +5,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{{ t.meta.title }}</title>
-<meta name="theme-color" content="#0a0a0a" />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#efe7d6" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="description" content="{{ t.meta.description }}" />
 <link rel="canonical" href="{{ site.origin }}/{{ lang }}/" />
@@ -27,26 +28,71 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Newsreader:opsz,wght,ital@6..72,400,0;6..72,400,1&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 {% raw %}<script>
-  // Apply persisted theme before first paint, to avoid flash.
+  // Apply the persisted theme before first paint, to avoid a flash.
+  // With no stored choice we leave data-theme unset, so CSS follows the
+  // system preference on its own.
   (() => {
+    let t = null;
     try {
-      const t = localStorage.getItem('atomstar-theme');
-      if (t === 'dark' || t === 'light') {
-        document.documentElement.dataset.theme = t;
-      }
+      const stored = localStorage.getItem('atomstar-theme');
+      if (stored === 'dark' || stored === 'light') t = stored;
     } catch (e) {}
+    if (t) document.documentElement.dataset.theme = t;
+    const eff = t || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', eff === 'dark' ? '#0a0a0a' : '#efe7d6');
+    if (t) document.querySelector('meta[name="color-scheme"]')?.setAttribute('content', t);
   })();
 </script>{% endraw %}
 {% raw %}<style>
   :root {
     /* brand pigments — never reassigned */
     --phosphor: #ff7a1a;
-    --phosphor-dim: #b34d00;
+    /* darkened from #b34d00: 4.29:1 on bone failed WCAG AA, this is 5.31:1.
+       Hue is unchanged at 26deg and still fully saturated. */
+    --phosphor-dim: #9c4300;
     --carbon: #0a0a0a;
     --bone: #efe7d6;
     --fission: #ff2d2d;
 
-    /* role tokens — DARK is the default */
+    /* Tell the browser we support both, so native UI (scrollbars, form
+       controls, the initial canvas) themes itself and does not flash white. */
+    color-scheme: light dark;
+
+    /* role tokens — LIGHT is the base; dark is applied below, either from the
+       system preference or from an explicit choice. The dark values are spelt
+       out twice because CSS cannot share one declaration block between two
+       selectors, and light-dark() is not yet Baseline widely available. */
+    --bg: var(--bone);
+    --fg: var(--carbon);
+    --bg-deep: #e4dcc4;
+    /* 0.55 gave 4.18:1 on bone — below AA for the 10-11px text this carries */
+    --dim: rgba(10, 10, 10, 0.6);
+    --rule: rgba(10, 10, 10, 0.14);
+    --bar-bg: rgba(239, 231, 214, 0.85);
+    --accent: var(--phosphor-dim);
+    --accent-on: var(--bone);
+    --mark-stroke: var(--phosphor-dim);
+  }
+
+  /* DARK by system preference, unless the visitor explicitly chose light */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: var(--carbon);
+      --fg: var(--bone);
+      --bg-deep: #000000;
+      --dim: rgba(239, 231, 214, 0.5);
+      --rule: rgba(239, 231, 214, 0.12);
+      --bar-bg: rgba(10, 10, 10, 0.85);
+      --accent: var(--phosphor);
+      --accent-on: var(--carbon);
+      --mark-stroke: var(--phosphor);
+    }
+  }
+
+  /* DARK by explicit choice */
+  :root[data-theme="dark"] {
+    color-scheme: dark;
     --bg: var(--carbon);
     --fg: var(--bone);
     --bg-deep: #000000;
@@ -58,18 +104,24 @@
     --mark-stroke: var(--phosphor);
   }
 
-  /* LIGHT — bone bg, darker phosphor for contrast */
-  [data-theme="light"] {
-    --bg: var(--bone);
-    --fg: var(--carbon);
-    --bg-deep: #e4dcc4;
-    --dim: rgba(10, 10, 10, 0.55);
-    --rule: rgba(10, 10, 10, 0.14);
-    --bar-bg: rgba(239, 231, 214, 0.85);
-    --accent: var(--phosphor-dim);
-    --accent-on: var(--bone);
-    --mark-stroke: var(--phosphor-dim);
+  /* LIGHT by explicit choice — tokens above are already light */
+  :root[data-theme="light"] { color-scheme: light; }
+
+  /* Skip link — visually hidden until it receives focus */
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+    background: var(--accent);
+    color: var(--accent-on);
+    padding: 10px 16px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
   }
+  .skip:focus { left: 8px; top: 8px; }
 
   html { transition: background 0.25s ease, color 0.25s ease; }
 
@@ -79,6 +131,7 @@
     background: var(--bg);
     color: var(--fg);
     font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size-adjust: from-font;
     font-size: 13px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -199,6 +252,7 @@
 
   .wordmark {
     font-family: 'Major Mono Display', 'IBM Plex Mono', monospace;
+    font-size-adjust: from-font;
     font-size: clamp(48px, 9vw, 132px);
     line-height: 0.95;
     letter-spacing: -0.02em;
@@ -210,6 +264,7 @@
   .hero .sub {
     margin-top: 8px;
     font-family: 'Newsreader', serif;
+    font-size-adjust: from-font;
     font-size: clamp(17px, 2vw, 22px);
     line-height: 1.45;
     max-width: 640px;
@@ -268,6 +323,7 @@
   }
   .marquee.headline .marquee-track span {
     font-family: 'Major Mono Display', monospace;
+    font-size-adjust: from-font;
     font-size: clamp(40px, 7vw, 90px);
     text-transform: none;
     letter-spacing: -0.01em;
@@ -278,6 +334,7 @@
     content: '/';
     color: var(--accent);
     font-family: 'Major Mono Display', monospace;
+    font-size-adjust: from-font;
   }
   .marquee.headline { padding: 36px 0; }
   .marquee.alt { background: var(--bg); }
@@ -313,6 +370,7 @@
   }
   .svc-head h2 {
     font-family: 'Newsreader', serif;
+    font-size-adjust: from-font;
     font-size: clamp(32px, 4.4vw, 56px);
     line-height: 1.05;
     font-weight: 400;
@@ -341,12 +399,14 @@
   .svc:hover { border-left-color: var(--accent); }
   .svc-num {
     font-family: 'Major Mono Display', monospace;
+    font-size-adjust: from-font;
     font-size: 22px;
     color: var(--accent);
     letter-spacing: 0.04em;
   }
   .svc h3 {
     font-family: 'Newsreader', serif;
+    font-size-adjust: from-font;
     font-size: 22px;
     line-height: 1.2;
     font-weight: 400;
@@ -399,6 +459,7 @@
   }
   .stat .value {
     font-family: 'Major Mono Display', monospace;
+    font-size-adjust: from-font;
     font-size: clamp(40px, 5vw, 64px);
     line-height: 1;
     color: var(--fg);
@@ -430,6 +491,7 @@
   }
   .cta-row h2 {
     font-family: 'Newsreader', serif;
+    font-size-adjust: from-font;
     font-style: italic;
     font-weight: 400;
     font-size: clamp(24px, 3.4vw, 40px);
@@ -492,6 +554,8 @@
 </head>
 <body>
 
+<a class="skip" href="#main">{{ t.skipToContent }}</a>
+
 <header class="top">
   <a class="brand" href="/{{ lang }}/">ATOMSTAR</a>
   <nav>
@@ -499,12 +563,17 @@
     <a href="#engage">{{ t.nav.engage }}</a>
   </nav>
   <a class="lang-switch" href="/{{ other }}/" hreflang="{{ other }}" data-lang-switch="{{ other }}" aria-label="{{ t.langSwitch.aria }}">{{ t.langSwitch.label }}</a>
-  <button class="theme-toggle" type="button" aria-label="Toggle theme" data-theme-toggle>
-    <span data-theme-label="dark">{{ t.theme.dark }}</span>
-    <span class="sep">·</span>
-    <span data-theme-label="light">{{ t.theme.light }}</span>
+  <button class="theme-toggle" type="button" data-theme-toggle
+          data-label-dark="{{ t.theme.switchToDark }}"
+          data-label-light="{{ t.theme.switchToLight }}"
+          aria-label="{{ t.theme.switchToDark }}">
+    <span aria-hidden="true" data-theme-label="dark">{{ t.theme.dark }}</span>
+    <span class="sep" aria-hidden="true">·</span>
+    <span aria-hidden="true" data-theme-label="light">{{ t.theme.light }}</span>
   </button>
 </header>
+
+<main id="main">
 
 <!-- ─── HERO ─── -->
 <section class="hero">
@@ -587,6 +656,8 @@
   <a class="cta" href="mailto:{{ site.email }}">{{ site.email }} →</a>
 </section>
 
+</main>
+
 <footer>
   <span>{{ t.footer.left }}</span>
   <span>{{ t.footer.right }}</span>
@@ -599,7 +670,11 @@
   const toggle = document.querySelector('[data-theme-toggle]');
   const order = ['dark', 'light'];
   const bgFor = { dark: '#0a0a0a', light: '#efe7d6' };
-  const current = () => order.includes(html.dataset.theme) ? html.dataset.theme : 'dark';
+  const systemDark = matchMedia('(prefers-color-scheme: dark)');
+  // No explicit choice means the system preference is what is showing.
+  const current = () => order.includes(html.dataset.theme)
+    ? html.dataset.theme
+    : (systemDark.matches ? 'dark' : 'light');
   const sync = () => {
     const cur = current();
     for (const t of order) {
@@ -607,8 +682,17 @@
       if (el) el.classList.toggle('active', cur === t);
     }
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', bgFor[cur]);
+    document.querySelector('meta[name="color-scheme"]')
+      ?.setAttribute('content', html.dataset.theme || 'light dark');
+    // The visible labels are aria-hidden, so name the button by what it does.
+    const next = order[(order.indexOf(cur) + 1) % order.length];
+    const label = toggle?.dataset['label' + next[0].toUpperCase() + next.slice(1)];
+    if (label) toggle.setAttribute('aria-label', label);
   };
   sync();
+  // The OS theme can change while the page is open; CSS follows it, so the
+  // button labels must too.
+  systemDark.addEventListener('change', sync);
   toggle?.addEventListener('click', () => {
     const next = order[(order.indexOf(current()) + 1) % order.length];
     html.dataset.theme = next;
