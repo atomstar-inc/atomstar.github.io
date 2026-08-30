@@ -46,7 +46,7 @@ The one piece of real logic in this build. Without it, adding an English string 
   "scripts": {
     "build": "eleventy",
     "serve": "eleventy --serve",
-    "test": "node --test test/"
+    "test": "node --test 'test/*.test.mjs'"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0"
