@@ -42,5 +42,5 @@
     { "label": "Disclosure / span", "unit": "research, continuous" }
   ],
   "cta": { "stamp": "★ Since 2006", "title": "Contact us." },
-  "footer": { "left": "ATOMSTAR", "right": "★ EST. 2006" }
+  "footer": "ATOMSTAR"
 }
