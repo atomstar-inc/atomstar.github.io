@@ -14,7 +14,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
   <text x="600" y="500" text-anchor="middle" fill="#efe7d6"
         font-family="monospace" font-size="58" letter-spacing="14">ATOMSTAR</text>
   <text x="600" y="556" text-anchor="middle" fill="#8c877c"
-        font-family="monospace" font-size="21" letter-spacing="6">EST. 2019</text>
+        font-family="monospace" font-size="21" letter-spacing="6">EST. 2006</text>
 </svg>`;
 
 await sharp(Buffer.from(svg)).png().toFile("src/og.png");

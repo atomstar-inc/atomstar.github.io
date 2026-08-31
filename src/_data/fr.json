@@ -41,6 +41,6 @@
     { "label": "Sommet / CVSS", "unit": "CVE-2019-9972" },
     { "label": "Divulgation / période", "unit": "recherche, en continu" }
   ],
-  "cta": { "stamp": "★ Depuis 2019", "title": "Contactez-nous." },
-  "footer": { "left": "ATOMSTAR", "right": "★ FONDÉE EN 2019 · SOUS OBSERVATION" }
+  "cta": { "stamp": "★ Depuis 2006", "title": "Contactez-nous." },
+  "footer": { "left": "ATOMSTAR", "right": "★ FONDÉE EN 2006 · SOUS OBSERVATION" }
 }

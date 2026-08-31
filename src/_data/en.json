@@ -41,6 +41,6 @@
     { "label": "Peak / CVSS", "unit": "CVE-2019-9972" },
     { "label": "Disclosure / span", "unit": "research, continuous" }
   ],
-  "cta": { "stamp": "★ Since 2019", "title": "Contact us." },
-  "footer": { "left": "ATOMSTAR", "right": "★ EST. 2019 · OPERATING UNDER OBSERVATION" }
+  "cta": { "stamp": "★ Since 2006", "title": "Contact us." },
+  "footer": { "left": "ATOMSTAR", "right": "★ EST. 2006 · OPERATING UNDER OBSERVATION" }
 }
