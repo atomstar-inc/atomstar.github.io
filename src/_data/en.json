@@ -10,7 +10,6 @@
   "skipToContent": "Skip to content",
   "langSwitch": { "label": "FR", "aria": "Voir cette page en français" },
   "hero": {
-    "eyebrow": "LIVE TRANSMISSION",
     "sub": "IT consulting, infrastructure, and offensive security."
   },
   "services": {

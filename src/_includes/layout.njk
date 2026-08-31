@@ -206,26 +206,6 @@
     position: relative;
     overflow: hidden;
   }
-  .hero .eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 28px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .hero .eyebrow::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: var(--accent);
-    box-shadow: 0 0 10px var(--accent);
-    border-radius: 50%;
-    animation: pulse 1.6s steps(2, end) infinite;
-  }
-  @keyframes pulse { 50% { opacity: 0.2; } }
-
   /* mark — atom icon + wordmark, horizontal */
   .mark {
     display: flex;
@@ -559,7 +539,6 @@
 
 <!-- ─── HERO ─── -->
 <section class="hero">
-  <div class="eyebrow">{{ t.hero.eyebrow }}</div>
   <div class="mark">
     <svg class="atom" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
       <circle cx="50" cy="50" r="46" class="ring"/>
