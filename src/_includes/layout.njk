@@ -206,26 +206,6 @@
     position: relative;
     overflow: hidden;
   }
-  .hero .eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 28px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .hero .eyebrow::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: var(--accent);
-    box-shadow: 0 0 10px var(--accent);
-    border-radius: 50%;
-    animation: pulse 1.6s steps(2, end) infinite;
-  }
-  @keyframes pulse { 50% { opacity: 0.2; } }
-
   /* mark — atom icon + wordmark, horizontal */
   .mark {
     display: flex;
@@ -306,7 +286,6 @@
     will-change: transform;
   }
   .marquee.fast .marquee-track { animation-duration: 32s; }
-  .marquee.slow .marquee-track { animation-duration: 90s; }
   .marquee-track span {
     font-size: 13px;
     letter-spacing: 0.12em;
@@ -321,23 +300,6 @@
     content: '★';
     color: var(--accent);
   }
-  .marquee.headline .marquee-track span {
-    font-family: 'Major Mono Display', monospace;
-    font-size-adjust: from-font;
-    font-size: clamp(40px, 7vw, 90px);
-    text-transform: none;
-    letter-spacing: -0.01em;
-    color: var(--fg);
-    gap: 28px;
-  }
-  .marquee.headline .marquee-track span::before {
-    content: '/';
-    color: var(--accent);
-    font-family: 'Major Mono Display', monospace;
-    font-size-adjust: from-font;
-  }
-  .marquee.headline { padding: 36px 0; }
-  .marquee.alt { background: var(--bg); }
 
   @keyframes scroll-left {
     from { transform: translateX(0); }
@@ -577,7 +539,6 @@
 
 <!-- ─── HERO ─── -->
 <section class="hero">
-  <div class="eyebrow">{{ t.hero.eyebrow }}</div>
   <div class="mark">
     <svg class="atom" viewBox="0 0 100 100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
       <circle cx="50" cy="50" r="46" class="ring"/>
@@ -639,16 +600,6 @@
   {% endfor %}
 </section>
 
-<!-- ─── MARQUEE 2 — manifesto headline ─── -->
-<div class="marquee headline slow alt" aria-hidden="true">
-  <div class="marquee-track">
-    <span>{{ t.marquee }}</span>
-    <span>{{ t.marquee }}</span>
-    <span>{{ t.marquee }}</span>
-    <span>{{ t.marquee }}</span>
-  </div>
-</div>
-
 <!-- ─── CTA ─── -->
 <section class="cta-row" id="engage">
   <div class="stamp">{{ t.cta.stamp }}</div>
@@ -659,8 +610,7 @@
 </main>
 
 <footer>
-  <span>{{ t.footer.left }}</span>
-  <span>{{ t.footer.right }}</span>
+  <span>{{ t.footer }}</span>
 </footer>
 
 {% raw %}<script>

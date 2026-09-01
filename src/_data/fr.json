@@ -1,37 +1,36 @@
 {
   "meta": {
     "title": "ATOMSTAR · Conseil TI et recherche offensive",
-    "description": "Atomstar est une société de conseil en TI du Québec dotée d'une pratique de recherche en sécurité offensive : infrastructure, identité, tests d'intrusion et sécurité des agents IA.",
+    "description": "Atomstar exploite l'infrastructure, l'identité et la continuité des entreprises québécoises, puis les attaque pour voir ce qui tient. Tests d'intrusion, recherche de vulnérabilités et sécurité des agents IA.",
     "ogTitle": "ATOMSTAR — Conseil TI et recherche offensive",
-    "ogDescription": "Ingénierie d'infrastructure, d'identité et de continuité, tests d'intrusion, recherche de vulnérabilités et sécurité des agents IA."
+    "ogDescription": "Nous exploitons votre infrastructure et nous l'attaquons. Tests d'intrusion, recherche de vulnérabilités et sécurité des agents IA."
   },
   "nav": { "work": "Services", "engage": "Nous joindre" },
   "theme": { "dark": "SOMBRE", "light": "CLAIR", "switchToDark": "Passer au thème sombre", "switchToLight": "Passer au thème clair" },
   "skipToContent": "Aller au contenu",
   "langSwitch": { "label": "EN", "aria": "View this page in English" },
   "hero": {
-    "eyebrow": "TRANSMISSION EN DIRECT",
-    "sub": "Une société de conseil en TI dotée d'une pratique de recherche."
+    "sub": "Conseil TI, infrastructure et sécurité offensive."
   },
   "services": {
     "consulting": {
       "tag": "01 / Services",
       "title": "Conseil TI.",
-      "lede": "Conception et exploitation d'infrastructures de production.",
+      "lede": "Nous concevons et exploitons les systèmes dont votre entreprise dépend.",
       "cards": [
-        { "num": "01", "title": "L'infrastructure comme code.", "body": "Une infrastructure de production définie dans un dépôt. Versionnée, révisable, reproductible.", "meta": "Infrastructure-as-Code · Conteneurs · Fabric" },
-        { "num": "02", "title": "Identité et accès.", "body": "Services d'annuaire, gestion des accès, gestion des appareils et infrastructure à clés. Documentation incluse.", "meta": "Identité · Accès · Politiques · Appareils" },
-        { "num": "03", "title": "Réseau et continuité.", "body": "Conception réseau, maillages overlay, liens site à site, sauvegarde et planification de la continuité.", "meta": "Maillage · Fabric · Sauvegarde · Continuité" }
+        { "num": "01", "title": "L'infrastructure comme code.", "body": "Nous définissons votre infrastructure dans un dépôt. Vous révisez chaque changement avant sa mise en production, et vous pouvez tout reconstruire à partir de zéro.", "meta": "Infrastructure-as-Code · Conteneurs · Fabric" },
+        { "num": "02", "title": "Identité et accès.", "body": "Nous gérons votre annuaire, vos appareils et les clés qui les protègent. Vous recevez une documentation conforme à ce que nous avons bâti.", "meta": "Identité · Accès · Politiques · Appareils" },
+        { "num": "03", "title": "Réseau et continuité.", "body": "Nous concevons le réseau et nous prouvons que les sauvegardes se restaurent. La panne d'un site ne devrait pas arrêter l'entreprise.", "meta": "Maillage · Fabric · Sauvegarde · Continuité" }
       ]
     },
     "offensive": {
       "tag": "02 / Services",
       "title": "Sécurité offensive.",
-      "lede": "Revue de sécurité indépendante de ce que vous livrez et de ce dont vous dépendez.",
+      "lede": "Nous attaquons ce que vous livrez et ce dont vous dépendez.",
       "cards": [
-        { "num": "04", "title": "Recherche de vulnérabilités.", "body": "Recherche indépendante et divulgation coordonnée. Six CVE publiées depuis 2019.", "meta": "MSRC · NVD · fenêtre de 90 jours" },
-        { "num": "05", "title": "Tests d'intrusion.", "body": "Mandats web, réseau, infonuagique et interne. Constats documentés avec reproductions, sévérité et correctifs. Retestés après remédiation.", "meta": "Web · Réseau · Infonuagique · Interne" },
-        { "num": "06", "title": "Sécurité de l'IA et des agents.", "body": "Tests adverses pour les modèles de langage et les systèmes agentiques : injection de prompt, détournement d'outils, limites des politiques, revue comportementale.", "meta": "LLM · Agents · Évaluations · Garde-fous" }
+        { "num": "04", "title": "Recherche de vulnérabilités.", "body": "Nous trouvons des failles dans les logiciels des autres et les signalons en divulgation coordonnée. Six des nôtres portent un CVE, depuis 2019.", "meta": "MSRC · NVD · fenêtre de 90 jours" },
+        { "num": "05", "title": "Tests d'intrusion.", "body": "Nous attaquons vos systèmes web, infonuagiques et internes. Vous recevez des constats que vous pouvez reproduire, et nous retestons une fois vos correctifs en place.", "meta": "Web · Réseau · Infonuagique · Interne" },
+        { "num": "06", "title": "Sécurité de l'IA et des agents.", "body": "Nous tentons de faire déraper vos modèles de langage et vos agents, par injection de prompt et détournement d'outils, puis nous vous montrons quels garde-fous ont cédé.", "meta": "LLM · Agents · Évaluations · Garde-fous" }
       ]
     }
   },
@@ -41,7 +40,6 @@
     { "label": "Sommet / CVSS", "unit": "CVE-2019-9972" },
     { "label": "Divulgation / période", "unit": "recherche, en continu" }
   ],
-  "marquee": "bâti par ceux qui savent comment ça casse",
-  "cta": { "stamp": "★ Depuis 2019", "title": "Contactez-nous." },
-  "footer": { "left": "ATOMSTAR", "right": "★ FONDÉE EN 2019 · SOUS OBSERVATION" }
+  "cta": { "stamp": "★ Depuis 2006", "title": "Contactez-nous." },
+  "footer": "ATOMSTAR"
 }
